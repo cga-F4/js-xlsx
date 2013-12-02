@@ -824,6 +824,8 @@ var XLSX = {};
                     //override p.r to be the id of the hyperlink
                     if (hprlnk[cell.r])
                         p.r = hprlnk[cell.r]['r:id'];
+                    else
+                        p.r = '';
 
                     /* formatting */
                     if (cell.s && styles.CellXf) { /* TODO: second check is a hacked guard */
@@ -857,7 +859,7 @@ var XLSX = {};
                 part.split(" ").forEach(function (relationshipItem) {
                     relationshipItem = relationshipItem.split("=");
                     if (relationshipItem[1])
-                        link[relationshipItem[0]] = relationshipItem[1].replace(/"/g, "");
+                        link[relationshipItem[0]] = utf8read(relationshipItem[1].replace(/"/g, ""));
                 });
                 if (link["Type"].match(/.*relationships\/hyperlink.*/)) {
 
